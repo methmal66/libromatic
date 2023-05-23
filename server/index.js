@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 const userRoutes = require("./routes/userRoutes");
 
 mongoose
@@ -20,6 +21,7 @@ mongoose
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 app.use("/users", userRoutes);
 
 const port = 8080;
