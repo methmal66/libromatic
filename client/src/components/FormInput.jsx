@@ -1,12 +1,14 @@
 import "../styles/FormInput.css";
 
-const FormInput = ({ name, placeholder, handler }) => {
+const FormInput = ({ name, password, placeholder, handler }) => {
     return (
         <div className="form-input">
-            <label htmlFor={name}>{name}</label>
+            <label className="form-input-label" htmlFor={name}>
+                {name}
+            </label>
             <input
                 className="form-text-input"
-                type="text"
+                type={password ? "password" : "text"}
                 id={name}
                 name={name}
                 placeholder={placeholder}

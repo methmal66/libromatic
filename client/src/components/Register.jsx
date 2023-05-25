@@ -4,6 +4,7 @@ import "../styles/Register.css";
 import FormInput from "./FormInput";
 import FormSubmit from "./FormSubmit";
 
+//TODO - Center this div properly
 const Register = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -60,18 +61,20 @@ const Register = () => {
                 />
                 <FormInput
                     name="Email"
-                    placeholder="sanuja.methmal@example.com"
+                    placeholder="methmal@example.com"
                     handler={handleChange}
                 />
                 <FormInput
                     name="Password"
                     placeholder="Enter a strong password"
                     handler={handleChange}
+                    password
                 />
                 <FormInput
                     name="Password Confirm"
                     placeholder="Enter the password again"
                     handler={handleChange}
+                    password
                 />
                 <FormSubmit handler={handleSubmit} />
             </form>

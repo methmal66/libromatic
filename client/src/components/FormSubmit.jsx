@@ -1,6 +1,6 @@
 import "../styles/FormSubmit.css";
 
-const FormSubmit = ({ handler }) => {
+const FormSubmit = ({ handler, password }) => {
     return (
         <input
             className="form-submit"

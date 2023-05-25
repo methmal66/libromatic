@@ -4,7 +4,6 @@ import Register from "./Register";
 const App = () => {
     return (
         <div className="App">
-            Hello world, This is my App
             <Register />
         </div>
     );
