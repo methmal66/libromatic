@@ -1,5 +1,8 @@
 import bcrypt from "bcryptjs";
 import { useState } from "react";
+import "../styles/Register.css";
+import FormInput from "./FormInput";
+import FormSubmit from "./FormSubmit";
 
 const Register = () => {
     const [username, setUsername] = useState("");
@@ -50,43 +53,27 @@ const Register = () => {
     return (
         <div className="register">
             <form>
-                <label htmlFor="username">Username</label>
-                <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    placeholder="Enter your username"
-                    onChange={handleChange}
+                <FormInput
+                    name="Username"
+                    placeholder="Sanuja Methmal"
+                    handler={handleChange}
                 />
-                <br />
-                <label htmlFor="email">Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Enter your email"
-                    onChange={handleChange}
+                <FormInput
+                    name="Email"
+                    placeholder="sanuja.methmal@example.com"
+                    handler={handleChange}
                 />
-                <br />
-                <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Enter your password"
-                    onChange={handleChange}
+                <FormInput
+                    name="Password"
+                    placeholder="Enter a strong password"
+                    handler={handleChange}
                 />
-                <br />
-                <label htmlFor="passwordConfirm">Confirm Password</label>
-                <input
-                    type="password"
-                    id="passwordConfirm"
-                    name="passwordConfirm"
-                    placeholder="Confirm your password"
-                    onChange={handleChange}
+                <FormInput
+                    name="Password Confirm"
+                    placeholder="Enter the password again"
+                    handler={handleChange}
                 />
-                <br />
-                <input type="submit" value="Submit" onClick={handleSubmit} />
+                <FormSubmit handler={handleSubmit} />
             </form>
         </div>
     );
