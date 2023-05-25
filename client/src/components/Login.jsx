@@ -1,63 +1,46 @@
-import bcrypt from "bcryptjs";
 import { useState } from "react";
-import "../styles/Register.css";
+import bcrypt from "bcryptjs";
 import FormInput from "./FormInput";
 import FormSubmit from "./FormSubmit";
 
-//TODO - Center this div properly
-const Register = () => {
-    const [username, setUsername] = useState("");
+const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [passwordConfirm, setPasswordConfirm] = useState("");
 
     const handleChange = (e) => {
-        if (e.target.name === "Username") setUsername(e.target.value);
         if (e.target.name === "Email") setEmail(e.target.value);
         if (e.target.name === "Password") setPassword(e.target.value);
-        if (e.target.name === "PasswordConfirm")
-            setPasswordConfirm(e.target.value);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (password !== passwordConfirm) {
-            alert("Passwords do not match!");
-            return;
-        }
 
-        fetch("http://localhost:8080/users/register", {
+        fetch("http://localhost:8080/users/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                username,
                 email,
                 password,
             }),
         })
             .then((res) => {
-                if (res.status === 201) {
-                    alert("User created successfully!");
+                if (res.status === 200) {
+                    alert("Loggedin successfully!");
                 } else {
-                    alert("User creation failed! " + res.status);
+                    alert("Loggin failed! " + res.status);
                 }
             })
             .catch((err) => {
                 console.log(err);
-                alert("User creation failed");
+                alert("An error occured while logging in");
             });
     };
 
     return (
         <div className="register">
             <form>
-                <FormInput
-                    name="Username"
-                    placeholder="Sanuja Methmal"
-                    handler={handleChange}
-                />
                 <FormInput
                     name="Email"
                     placeholder="methmal@example.com"
@@ -69,16 +52,10 @@ const Register = () => {
                     handler={handleChange}
                     password
                 />
-                <FormInput
-                    name="Password Confirm"
-                    placeholder="Enter the password again"
-                    handler={handleChange}
-                    password
-                />
-                <FormSubmit handler={handleSubmit} />
+                <FormSubmit text="Login" handler={handleSubmit} />
             </form>
         </div>
     );
 };
 
-export default Register;
+export default Login;

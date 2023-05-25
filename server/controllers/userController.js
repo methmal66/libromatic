@@ -6,11 +6,11 @@ async function register(req, res) {
     try {
         console.log(req.body);
         const { username, email, password } = req.body;
-
+        const hashdPassword = await bcrypt.hash(password, 10);
         const newUser = new User({
             username,
             email,
-            password,
+            password: hashdPassword,
         });
         const savedUser = await newUser.save();
 
@@ -30,12 +30,9 @@ async function login(req, res) {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(401).json({ error: "Invalid email or password" });
-        }
+        const isMatch = bcrypt.compare(password, user.password);
 
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) {
+        if (!user || !isMatch) {
             return res.status(401).json({ error: "Invalid email or password" });
         }
 
