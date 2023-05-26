@@ -1,11 +1,12 @@
 import { useState } from "react";
-import bcrypt from "bcryptjs";
+import { useNavigate } from "react-router-dom";
 import FormInput from "./FormInput";
 import FormSubmit from "./FormSubmit";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         if (e.target.name === "Email") setEmail(e.target.value);
@@ -27,10 +28,19 @@ const Login = () => {
         })
             .then((res) => {
                 if (res.status === 200) {
-                    alert("Loggedin successfully!");
+                    alert("Login successful!");
+                    navigate("/home");
                 } else {
-                    alert("Loggin failed! " + res.status);
+                    alert("Login failed! " + res.status);
                 }
+                return res.json();
+            })
+            .then((data) => {
+                localStorage.setItem("libromatic_access_token", data.token);
+                localStorage.setItem(
+                    "libromatic_user",
+                    JSON.stringify(data.user)
+                );
             })
             .catch((err) => {
                 console.log(err);
@@ -38,6 +48,7 @@ const Login = () => {
             });
     };
 
+    //TODO - Option to remember the user
     return (
         <div className="register">
             <form>

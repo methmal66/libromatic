@@ -2,21 +2,21 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
+//TODO - Check if user does not exist before registering
 async function register(req, res) {
     try {
-        console.log(req.body);
         const { username, email, password } = req.body;
         const hashdPassword = await bcrypt.hash(password, 10);
         const newUser = new User({
             username,
             email,
             password: hashdPassword,
+            profilePicture: "",
         });
-        const savedUser = await newUser.save();
+        newUser.save();
 
         res.status(201).json({
             message: "User registered successfully",
-            user: savedUser,
         });
     } catch (error) {
         console.log(error);
@@ -32,7 +32,11 @@ async function login(req, res) {
         const user = await User.findOne({ email });
         const isMatch = bcrypt.compare(password, user.password);
 
-        if (!user || !isMatch) {
+        if (!user) {
+            return res.status(401).json({ error: "Invalid email or password" });
+        }
+
+        if (!isMatch) {
             return res.status(401).json({ error: "Invalid email or password" });
         }
 
@@ -41,12 +45,10 @@ async function login(req, res) {
             "your-secret-key",
             { expiresIn: "1d" }
         );
-        res.cookie("libromatic_access_token", token, {
-            maxAge: 86400000,
-            httpOnly: true,
-        });
-        res.status(200).json({ message: "Login successful" });
+
+        res.status(200).json({ message: "Login successful", token, user });
     } catch (error) {
+        console.log(error);
         res.status(500).json({ error: "An error occurred during login" });
     }
 }

@@ -1,8 +1,8 @@
-import bcrypt from "bcryptjs";
 import { useState } from "react";
 import "../styles/Register.css";
 import FormInput from "./FormInput";
 import FormSubmit from "./FormSubmit";
+import { useNavigate } from "react-router-dom";
 
 //TODO - Center this div properly
 const Register = () => {
@@ -10,12 +10,13 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         if (e.target.name === "Username") setUsername(e.target.value);
         if (e.target.name === "Email") setEmail(e.target.value);
         if (e.target.name === "Password") setPassword(e.target.value);
-        if (e.target.name === "PasswordConfirm")
+        if (e.target.name === "Password Confirm")
             setPasswordConfirm(e.target.value);
     };
 
@@ -40,13 +41,13 @@ const Register = () => {
             .then((res) => {
                 if (res.status === 201) {
                     alert("User created successfully!");
+                    navigate("/login");
                 } else {
                     alert("User creation failed! " + res.status);
                 }
             })
             .catch((err) => {
-                console.log(err);
-                alert("User creation failed");
+                alert("An error occured while registering");
             });
     };
 
