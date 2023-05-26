@@ -26,6 +26,12 @@ const Home = () => {
         e.target.src = defaultProfilePic;
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem("libromatic_access_token");
+        localStorage.removeItem("libromatic_user");
+        navigate("/login");
+    };
+
     if (!user) {
         return null; // or you can render a loading spinner
     }
@@ -38,6 +44,7 @@ const Home = () => {
                 alt="Profile Pic"
                 onError={handleImageNotFound}
             />
+            <button onClick={handleLogout}>Logout</button>
         </div>
     );
 };
