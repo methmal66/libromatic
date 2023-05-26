@@ -7,7 +7,6 @@ const Home = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        //BUG : JSON parse undefined error
         try {
             const userData = JSON.parse(
                 localStorage.getItem("libromatic_user")
@@ -33,7 +32,7 @@ const Home = () => {
     };
 
     if (!user) {
-        return null; // or you can render a loading spinner
+        return null;
     }
 
     return (

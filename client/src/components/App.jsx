@@ -4,7 +4,6 @@ import Login from "./Login";
 import Home from "./Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-//TODO - Display home if user logged in
 const App = () => {
     return (
         <div className="App">

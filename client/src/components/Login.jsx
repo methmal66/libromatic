@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import FormInput from "./FormInput";
 import FormSubmit from "./FormSubmit";
+import "../styles/FormInput.css";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -26,14 +27,8 @@ const Login = () => {
                 password,
             }),
         })
-            .then((res) => {
-                if (res.status === 200) {
-                    alert("Login successful!");
-                } else {
-                    alert("Login failed! " + res.status);
-                }
-                return res.json();
-            })
+            .then((res) => res.json())
+            .then((data) => alert(data.message))
             .then((data) => {
                 localStorage.setItem("libromatic_access_token", data.token);
                 localStorage.setItem(
@@ -42,13 +37,9 @@ const Login = () => {
                 );
                 navigate("/");
             })
-            .catch((err) => {
-                console.log(err);
-                alert("An error occured while logging in");
-            });
+            .catch((error) => alert(error));
     };
 
-    //TODO - Option to remember the user
     return (
         <div className="register">
             <form>

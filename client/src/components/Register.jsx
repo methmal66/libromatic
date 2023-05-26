@@ -39,16 +39,11 @@ const Register = () => {
             }),
         })
             .then((res) => {
-                if (res.status === 201) {
-                    alert("User created successfully!");
-                    navigate("/login");
-                } else {
-                    alert("User creation failed! " + res.status);
-                }
+                if (res.status === 200) navigate("/login");
+                return res.json();
             })
-            .catch((err) => {
-                alert("An error occured while registering");
-            });
+            .then((data) => alert(data.message))
+            .catch((error) => alert(error));
     };
 
     return (
