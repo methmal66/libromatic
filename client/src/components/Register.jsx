@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../styles/Register.css";
 import FormInput from "./FormInput";
 import FormSubmit from "./FormSubmit";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 //TODO - Center this div properly
 const Register = () => {
@@ -53,7 +53,7 @@ const Register = () => {
 
     return (
         <div className="register">
-            <form>
+            <form className="register-form">
                 <FormInput
                     name="Username"
                     placeholder="Sanuja Methmal"
@@ -78,6 +78,7 @@ const Register = () => {
                 />
                 <FormSubmit handler={handleSubmit} />
             </form>
+            <Link to="/login">Already have an account?</Link>
         </div>
     );
 };

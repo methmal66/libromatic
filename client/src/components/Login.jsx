@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import FormInput from "./FormInput";
 import FormSubmit from "./FormSubmit";
 
@@ -65,6 +65,7 @@ const Login = () => {
                 />
                 <FormSubmit text="Login" handler={handleSubmit} />
             </form>
+            <Link to="/register">Let's create an account?</Link>
         </div>
     );
 };
