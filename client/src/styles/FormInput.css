@@ -6,12 +6,9 @@
 }
 
 .form-text-input {
-    width: 250px;
     height: 50px;
-    margin: 10px;
     border-radius: 8px;
     border: 2px solid #aaaaaa;
-    margin: 0px;
     padding: 15px;
     font-size: 1em;
 }
@@ -22,4 +19,18 @@
     font-size: 0.7em;
     color: #7d7b7b;
     font-weight: bold;
+}
+
+.form-input-valid-feedback {
+    margin-top: 5px;
+    padding: 0px;
+    font-size: 1em;
+    color: #0d7e2f;
+}
+
+.form-input-invalid-feedback {
+    margin-top: 5px;
+    padding: 0px;
+    font-size: 1em;
+    color: #9c1d1d;
 }

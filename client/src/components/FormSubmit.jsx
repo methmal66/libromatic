@@ -1,12 +1,13 @@
 import "../styles/FormSubmit.css";
 
-const FormSubmit = ({ handler, password }) => {
+const FormSubmit = ({ handler, disabled }) => {
     return (
         <input
-            className="form-submit"
+            className={disabled ? "form-submit-disabled" : "form-submit"}
             type="submit"
             value="Submit"
             onClick={handler}
+            disabled={disabled}
         />
     );
 };
