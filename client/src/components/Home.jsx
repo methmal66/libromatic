@@ -1,17 +1,34 @@
-//TODO - Logout button
 import { useEffect, useState } from "react";
 import defaultProfilePic from "../images/default-profile-pic.png";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
     const [user, setUser] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
-        setUser(JSON.parse(localStorage.getItem("libromatic_user")));
-    }, []);
+        //BUG : JSON parse undefined error
+        try {
+            const userData = JSON.parse(
+                localStorage.getItem("libromatic_user")
+            );
+            if (userData) {
+                setUser(userData);
+            } else {
+                navigate("/login");
+            }
+        } catch (error) {
+            navigate("/login");
+        }
+    }, [navigate]);
 
     const handleImageNotFound = (e) => {
         e.target.src = defaultProfilePic;
     };
+
+    if (!user) {
+        return null; // or you can render a loading spinner
+    }
 
     return (
         <div className="home">

@@ -30,6 +30,7 @@ async function login(req, res) {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
+        // BUG : Any password matches with the hash
         const isMatch = bcrypt.compare(password, user.password);
 
         if (!user) {

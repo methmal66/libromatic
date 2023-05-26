@@ -29,7 +29,6 @@ const Login = () => {
             .then((res) => {
                 if (res.status === 200) {
                     alert("Login successful!");
-                    navigate("/home");
                 } else {
                     alert("Login failed! " + res.status);
                 }
@@ -41,6 +40,7 @@ const Login = () => {
                     "libromatic_user",
                     JSON.stringify(data.user)
                 );
+                navigate("/");
             })
             .catch((err) => {
                 console.log(err);
