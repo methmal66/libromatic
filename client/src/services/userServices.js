@@ -25,7 +25,6 @@ export const loginUser = (user, navigate) => {
         .then((res) => res.json())
         .then((data) => {
             alert(data.message);
-            localStorage.setItem("libromatic_access_token", data.token);
             localStorage.setItem("libromatic_user", JSON.stringify(data.user));
             navigate("/");
         })

@@ -26,7 +26,6 @@ const Home = () => {
     };
 
     const handleLogout = () => {
-        localStorage.removeItem("libromatic_access_token");
         localStorage.removeItem("libromatic_user");
         navigate("/login");
     };

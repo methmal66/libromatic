@@ -56,13 +56,21 @@ async function login(req, res) {
                 .json({ message: "Invalid email or password!" });
         }
 
-        const token = jwt.sign(
-            { userId: user._id, email: user.email },
-            "your-secret-key",
-            { expiresIn: "1d" }
-        );
+        const token = jwt.sign({ userId: user._id }, "your-secret-key", {
+            expiresIn: "1d",
+        });
 
-        res.status(200).json({ message: "Login successful!", token, user });
+        const updatedUser = {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            profilePicture: user.profilePicture,
+            token,
+        };
+        res.status(200).json({
+            message: "Login successful!",
+            user: updatedUser,
+        });
     } catch (error) {
         res.status(400).json({ message: "Required fields are missing!" });
     }
