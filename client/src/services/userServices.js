@@ -4,14 +4,14 @@ export const registerUser = (user, navigate) => {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(user)
-            .then((res) => {
-                if (res.status === 200) navigate("/login");
-                return res.json();
-            })
-            .then((data) => alert(data.message))
-            .catch((error) => alert(error)),
-    });
+        body: JSON.stringify(user),
+    })
+        .then((res) => res.json())
+        .then((data) => {
+            alert(data.message);
+            navigate("/login");
+        })
+        .catch((error) => alert(error));
 };
 
 export const loginUser = (user, navigate) => {
@@ -41,6 +41,7 @@ export const findUserByUsername = async (username) => {
     );
     const response = await request.json();
     const user = response.user;
+    console.log(user);
     return user;
 };
 

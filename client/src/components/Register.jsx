@@ -14,9 +14,9 @@ import { registerUser } from "../services/userServices";
 //TODO - Center this div properly
 //TODO - Add colos to forms
 const Register = () => {
-    const username = useRef("");
-    const email = useRef("");
-    const password = useRef("");
+    const username = useRef(null);
+    const email = useRef(null);
+    const password = useRef(null);
     const passwordConfirm = useRef(false);
     const [usernameFeedback, setUsernameFeedback] = useState({ valid: false });
     const [emailFeedback, setEmailFeedback] = useState({ valid: false });
@@ -28,11 +28,14 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!passwordConfirm) {
-            alert("Passwords do not match!");
-            return;
-        }
-        registerUser({ username, email, password }, navigate);
+        registerUser(
+            {
+                username: username.current,
+                email: email.current,
+                password: password.current,
+            },
+            navigate
+        );
     };
 
     const handleUsernameChange = async (e) => {
@@ -40,6 +43,7 @@ const Register = () => {
         const { valid, message } = await isUsernameValid(value);
         setUsernameFeedback({ valid, message });
         if (valid) username.current = value;
+        else username.current = null;
     };
 
     const handleEmailChange = async (e) => {
@@ -47,6 +51,7 @@ const Register = () => {
         const { valid, message } = await isEmailValid(value);
         setEmailFeedback({ valid, message });
         if (valid) email.current = value;
+        else email.current = null;
     };
 
     const handlePasswordChange = (e) => {
@@ -54,6 +59,7 @@ const Register = () => {
         const { valid, message } = isPasswordValid(value);
         setPasswordFeedback({ valid, message });
         if (valid) password.current = value;
+        else password.current = null;
     };
 
     const handleConfirmPasswordChange = (e) => {
@@ -98,10 +104,10 @@ const Register = () => {
                 <FormSubmit
                     handler={handleSubmit}
                     disabled={
-                        !usernameFeedback.valid ||
-                        !emailFeedback.valid ||
-                        !passwordFeedback.valid ||
-                        !passwordConfirmFeedback.valid
+                        !username.current ||
+                        !email.current ||
+                        !password.current ||
+                        !passwordConfirm.current
                     }
                 />
             </form>
