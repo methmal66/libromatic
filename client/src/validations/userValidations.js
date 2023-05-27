@@ -1,128 +1,118 @@
 import { findUserByUsername, findUserByEmail } from "../services/userServices";
 
-export const validateUsername = async (value, setValue, setFeedback) => {
+export const isUsernameValid = async (input) => {
     const pattern = /^[a-zA-Z0-9_]{4,16}$/;
 
-    if (pattern.test(value)) {
-        const user = await findUserByUsername(value);
-        console.log(user);
+    if (pattern.test(input)) {
+        const user = await findUserByUsername(input);
         if (user) {
-            return setFeedback({
+            return {
                 valid: false,
                 message: " is already taken",
-            });
+            };
         }
-        setValue(value);
-        return setFeedback({
+        return {
             valid: true,
             message: " is valid",
-        });
+        };
     }
 
-    if (value.length < 4)
-        return setFeedback({
+    if (input.length < 4)
+        return {
             valid: false,
             message: " should be longer than 4 characters",
-        });
+        };
 
-    if (value.length > 16)
-        return setFeedback({
+    if (input.length > 16)
+        return {
             valid: false,
             message: " cannot exceed 16 characters",
-        });
+        };
 
-    setFeedback({
+    return {
         valid: false,
         message: " cannot include special characters",
-    });
+    };
 };
 
-export const validateEmail = async (value, setValue, setFeedback) => {
+export const isEmailValid = async (input) => {
     const pattern = /^[\w.-]+@[a-zA-Z_-]+?(?:\.[a-zA-Z]{2,})+$/;
 
-    if (pattern.test(value)) {
-        const user = await findUserByEmail(value);
+    if (pattern.test(input)) {
+        const user = await findUserByEmail(input);
         if (user) {
-            return setFeedback({
+            return {
                 valid: false,
                 message: " is already taken",
-            });
+            };
         }
-        setValue(value);
-        return setFeedback({
+        return {
             valid: true,
             message: " is valid",
-        });
+        };
     }
-    setFeedback({
+    return {
         valid: false,
         message: " is invalid",
-    });
+    };
 };
 
-export const validatePassword = (value, setValue, setFeedback) => {
+export const isPasswordValid = (input) => {
     const pattern =
         /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()])[a-zA-Z0-9!@#$%^&*()]{8,16}$/;
 
-    if (pattern.test(value)) {
-        setValue(value);
-        return setFeedback({
+    if (pattern.test(input)) {
+        return {
             valid: true,
             message: " is valid",
-        });
+        };
     }
 
-    if (value.length < 8) {
-        return setFeedback({
+    if (input.length < 8) {
+        return {
             valid: false,
             message: " should longer than 8 characters",
-        });
+        };
     }
 
-    if (value.length > 70) {
-        return setFeedback({
+    if (input.length > 70) {
+        return {
             valid: false,
             message: " cannot exceed 70 characters",
-        });
+        };
     }
 
     // Check for specific invalid patterns
-    if (!/[a-zA-Z]/.test(value)) {
-        return setFeedback({
+    if (!/[a-zA-Z]/.test(input)) {
+        return {
             valid: false,
             message: " should have at least one letter",
-        });
+        };
     }
 
-    if (!/[0-9]/.test(value)) {
-        return setFeedback({
+    if (!/[0-9]/.test(input)) {
+        return {
             valid: false,
             message: " should have at least one digit",
-        });
+        };
     }
 
-    setFeedback({
+    return {
         valid: false,
         message: " should have a special character",
-    });
+    };
 };
 
-export const validateConfirmPassword = (
-    confirmPassword,
-    password,
-    setValue,
-    setFeedback
-) => {
-    if (confirmPassword === password) {
-        setValue(true);
-        return setFeedback({
+export const isConfirmPasswordValid = (input, password) => {
+    if (input === password) {
+        return {
             valid: true,
             message: " matches",
-        });
+        };
     }
 
-    setFeedback({
+    return {
         valid: false,
         message: " does not match",
-    });
+    };
 };

@@ -1,23 +1,23 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "../styles/Register.css";
 import FormInput from "./FormInput";
 import FormSubmit from "./FormSubmit";
 import { Link, useNavigate } from "react-router-dom";
 import {
-    validateConfirmPassword,
-    validateEmail,
-    validatePassword,
-    validateUsername,
+    isUsernameValid,
+    isEmailValid,
+    isPasswordValid,
+    isConfirmPasswordValid,
 } from "../validations/userValidations";
 import { registerUser } from "../services/userServices";
 
 //TODO - Center this div properly
 //TODO - Add colos to forms
 const Register = () => {
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [passwordConfirm, setPasswordConfirm] = useState(false);
+    const username = useRef("");
+    const email = useRef("");
+    const password = useRef("");
+    const passwordConfirm = useRef(false);
     const [usernameFeedback, setUsernameFeedback] = useState({ valid: false });
     const [emailFeedback, setEmailFeedback] = useState({ valid: false });
     const [passwordFeedback, setPasswordFeedback] = useState({ valid: false });
@@ -35,30 +35,35 @@ const Register = () => {
         registerUser({ username, email, password }, navigate);
     };
 
-    const handleUsernameChange = (e) => {
+    const handleUsernameChange = async (e) => {
         const value = e.target.value;
-        validateUsername(value, setUsername, setUsernameFeedback);
+        const { valid, message } = await isUsernameValid(value);
+        setUsernameFeedback({ valid, message });
+        if (valid) username.current = value;
     };
 
-    const handleEmailChange = (e) => {
+    const handleEmailChange = async (e) => {
         const value = e.target.value;
-        validateEmail(value, setEmail, setEmailFeedback);
+        const { valid, message } = await isEmailValid(value);
+        setEmailFeedback({ valid, message });
+        if (valid) email.current = value;
     };
 
-    //FIXME - Confirm password is not compared when password change
     const handlePasswordChange = (e) => {
         const value = e.target.value;
-        validatePassword(value, setPassword, setPasswordFeedback);
+        const { valid, message } = isPasswordValid(value);
+        setPasswordFeedback({ valid, message });
+        if (valid) password.current = value;
     };
 
     const handleConfirmPasswordChange = (e) => {
         const value = e.target.value;
-        validateConfirmPassword(
+        const { valid, message } = isConfirmPasswordValid(
             value,
-            password,
-            setPasswordConfirm,
-            setPasswordConfirmFeedback
+            password.current
         );
+        setPasswordConfirmFeedback({ valid, message });
+        passwordConfirm.current = valid;
     };
 
     return (
