@@ -23,8 +23,8 @@ export const loginUser = (user, navigate) => {
         body: JSON.stringify(user),
     })
         .then((res) => res.json())
-        .then((data) => alert(data.message))
         .then((data) => {
+            alert(data.message);
             localStorage.setItem("libromatic_access_token", data.token);
             localStorage.setItem("libromatic_user", JSON.stringify(data.user));
             navigate("/");
