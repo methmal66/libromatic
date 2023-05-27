@@ -1,7 +1,17 @@
-export const validateUsername = (value, setValue, setFeedback) => {
+import { findUserByUsername, findUserByEmail } from "../services/userServices";
+
+export const validateUsername = async (value, setValue, setFeedback) => {
     const pattern = /^[a-zA-Z0-9_]{4,16}$/;
 
     if (pattern.test(value)) {
+        const user = await findUserByUsername(value);
+        console.log(user);
+        if (user) {
+            return setFeedback({
+                valid: false,
+                message: " is already taken",
+            });
+        }
         setValue(value);
         return setFeedback({
             valid: true,
@@ -27,10 +37,17 @@ export const validateUsername = (value, setValue, setFeedback) => {
     });
 };
 
-export const validateEmail = (value, setValue, setFeedback) => {
+export const validateEmail = async (value, setValue, setFeedback) => {
     const pattern = /^[\w.-]+@[a-zA-Z_-]+?(?:\.[a-zA-Z]{2,})+$/;
 
     if (pattern.test(value)) {
+        const user = await findUserByEmail(value);
+        if (user) {
+            return setFeedback({
+                valid: false,
+                message: " is already taken",
+            });
+        }
         setValue(value);
         return setFeedback({
             valid: true,

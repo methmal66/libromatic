@@ -28,12 +28,12 @@ async function register(req, res) {
         newUser.save();
 
         res.status(201).json({
-            message: "Account created successfully",
+            message: "Account created successfully!",
         });
     } catch (error) {
         console.log(error);
-        res.status(500).json({
-            message: "An error occurred during registration!",
+        res.status(400).json({
+            message: "Required fields are missing!",
         });
     }
 }
@@ -64,12 +64,39 @@ async function login(req, res) {
 
         res.status(200).json({ message: "Login successful!", token, user });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "An error occurred during login" });
+        res.status(400).json({ message: "Required fields are missing!" });
+    }
+}
+
+async function findByUsername(req, res) {
+    try {
+        const username = req.query.username;
+        const user = await User.findOne({ username });
+        if (user) {
+            return res.status(200).json({ message: "User found!", user });
+        }
+        res.status(404).json({ message: "User not found!" });
+    } catch (error) {
+        res.status(400).json({ message: "Username field is missing!" });
+    }
+}
+
+async function findByEmail(req, res) {
+    try {
+        const email = req.query.email;
+        const user = await User.findOne({ email });
+        if (user) {
+            return res.status(200).json({ message: "User found!", user });
+        }
+        res.status(404).json({ message: "User not found!" });
+    } catch (error) {
+        res.status(400).json({ message: "Email field is missing!" });
     }
 }
 
 module.exports = {
     register,
     login,
+    findByUsername,
+    findByEmail,
 };

@@ -31,3 +31,27 @@ export const loginUser = (user, navigate) => {
         })
         .catch((error) => alert(error));
 };
+
+export const findUserByUsername = async (username) => {
+    const request = await fetch(
+        "http://localhost:8080/users/findByUsername?username=" + username,
+        {
+            method: "GET",
+        }
+    );
+    const response = await request.json();
+    const user = response.user;
+    return user;
+};
+
+export const findUserByEmail = async (email) => {
+    const request = await fetch(
+        "http://localhost:8080/users/findByEmail?email=" + email,
+        {
+            method: "GET",
+        }
+    );
+    const response = await request.json();
+    const user = response.user;
+    return user;
+};

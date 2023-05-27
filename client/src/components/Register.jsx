@@ -12,7 +12,6 @@ import {
 import { registerUser } from "../services/userServices";
 
 //TODO - Center this div properly
-//TODO - Validate if username and email are already taken
 //TODO - Add colos to forms
 const Register = () => {
     const [username, setUsername] = useState("");
