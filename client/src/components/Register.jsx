@@ -9,11 +9,10 @@ import {
     validatePassword,
     validateUsername,
 } from "../validations/userValidations";
+import { registerUser } from "../services/userServices";
 
 //TODO - Center this div properly
 //TODO - Validate if username and email are already taken
-//TODO - Refactor validations
-//TODO - Refactor services
 //TODO - Add colos to forms
 const Register = () => {
     const [username, setUsername] = useState("");
@@ -34,24 +33,7 @@ const Register = () => {
             alert("Passwords do not match!");
             return;
         }
-
-        fetch("http://localhost:8080/users/register", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                username,
-                email,
-                password,
-            }),
-        })
-            .then((res) => {
-                if (res.status === 200) navigate("/login");
-                return res.json();
-            })
-            .then((data) => alert(data.message))
-            .catch((error) => alert(error));
+        registerUser({ username, email, password }, navigate);
     };
 
     const handleUsernameChange = (e) => {

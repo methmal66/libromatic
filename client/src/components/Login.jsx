@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import FormInput from "./FormInput";
 import FormSubmit from "./FormSubmit";
 import "../styles/FormInput.css";
+import { loginUser } from "../services/userServices";
 
 //FIXME - Cannot read property 'valid' of undefined
 //TODO - Add inline validation for email and password
@@ -16,30 +17,9 @@ const Login = () => {
         if (e.target.name === "Password") setPassword(e.target.value);
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-
-        fetch("http://localhost:8080/users/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                email,
-                password,
-            }),
-        })
-            .then((res) => res.json())
-            .then((data) => alert(data.message))
-            .then((data) => {
-                localStorage.setItem("libromatic_access_token", data.token);
-                localStorage.setItem(
-                    "libromatic_user",
-                    JSON.stringify(data.user)
-                );
-                navigate("/");
-            })
-            .catch((error) => alert(error));
+        loginUser({ email, password }, navigate);
     };
 
     return (
