@@ -1,32 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useContext } from "react";
 import defaultProfilePic from "../images/default-profile-pic.png";
 import { useNavigate } from "react-router-dom";
+import UserContext from "../contexts/UserContext";
 
+//TODO - Read user from useContext
 const Home = () => {
-    const [user, setUser] = useState("");
+    const [user, setUser] = useContext(UserContext);
     const navigate = useNavigate();
 
     useEffect(() => {
-        try {
-            const userData = JSON.parse(
-                localStorage.getItem("libromatic_user")
-            );
-            if (userData) {
-                setUser(userData);
-            } else {
-                navigate("/login");
-            }
-        } catch (error) {
-            navigate("/login");
-        }
-    }, [navigate]);
+        if (!user) navigate("/login");
+    }, [user]);
 
     const handleImageNotFound = (e) => {
         e.target.src = defaultProfilePic;
     };
 
     const handleLogout = () => {
-        localStorage.removeItem("libromatic_user");
+        setUser(null);
         navigate("/login");
     };
 
