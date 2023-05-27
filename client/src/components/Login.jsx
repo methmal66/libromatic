@@ -5,6 +5,7 @@ import FormSubmit from "./FormSubmit";
 import "../styles/FormInput.css";
 
 //FIXME - Cannot read property 'valid' of undefined
+//TODO - Add inline validation for email and password
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

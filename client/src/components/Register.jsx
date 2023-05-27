@@ -3,9 +3,18 @@ import "../styles/Register.css";
 import FormInput from "./FormInput";
 import FormSubmit from "./FormSubmit";
 import { Link, useNavigate } from "react-router-dom";
+import {
+    validateConfirmPassword,
+    validateEmail,
+    validatePassword,
+    validateUsername,
+} from "../validations/userValidations";
 
 //TODO - Center this div properly
-//TODO - Inline validation
+//TODO - Validate if username and email are already taken
+//TODO - Refactor validations
+//TODO - Refactor services
+//TODO - Add colos to forms
 const Register = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -47,115 +56,28 @@ const Register = () => {
 
     const handleUsernameChange = (e) => {
         const value = e.target.value;
-        const pattern = /^[a-zA-Z0-9_]{4,16}$/;
-
-        if (pattern.test(value)) {
-            setUsername(value);
-            return setUsernameFeedback({
-                valid: true,
-                message: " is valid",
-            });
-        }
-
-        if (value.length < 4)
-            return setUsernameFeedback({
-                valid: false,
-                message: " should be longer than 4 characters",
-            });
-
-        if (value.length > 16)
-            return setUsernameFeedback({
-                valid: false,
-                message: " cannot exceed 16 characters",
-            });
-
-        return setUsernameFeedback({
-            valid: false,
-            message: " cannot include special characters",
-        });
+        validateUsername(value, setUsername, setUsernameFeedback);
     };
 
     const handleEmailChange = (e) => {
         const value = e.target.value;
-        const pattern = /^[\w.-]+@[a-zA-Z_-]+?(?:\.[a-zA-Z]{2,})+$/;
-
-        if (pattern.test(value)) {
-            setEmail(value);
-            return setEmailFeedback({
-                valid: true,
-                message: " is valid",
-            });
-        }
-        return setEmailFeedback({
-            valid: false,
-            message: " is invalid",
-        });
+        validateEmail(value, setEmail, setEmailFeedback);
     };
 
     //FIXME - Confirm password is not compared when password change
     const handlePasswordChange = (e) => {
         const value = e.target.value;
-        const pattern =
-            /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()])[a-zA-Z0-9!@#$%^&*()]{8,16}$/;
-
-        if (pattern.test(value)) {
-            setPassword(value);
-            return setPasswordFeedback({
-                valid: true,
-                message: " is valid",
-            });
-        }
-
-        if (value.length < 8) {
-            return setPasswordFeedback({
-                valid: false,
-                message: " should longer than 8 characters",
-            });
-        }
-
-        if (value.length > 70) {
-            return setPasswordFeedback({
-                valid: false,
-                message: " cannot exceed 70 characters",
-            });
-        }
-
-        // Check for specific invalid patterns
-        if (!/[a-zA-Z]/.test(value)) {
-            return setPasswordFeedback({
-                valid: false,
-                message: " should have at least one letter",
-            });
-        }
-
-        if (!/[0-9]/.test(value)) {
-            return setPasswordFeedback({
-                valid: false,
-                message: " should have at least one digit",
-            });
-        }
-
-        return setPasswordFeedback({
-            valid: false,
-            message: " should have a special character",
-        });
+        validatePassword(value, setPassword, setPasswordFeedback);
     };
 
     const handleConfirmPasswordChange = (e) => {
         const value = e.target.value;
-
-        if (value === password) {
-            setPasswordConfirm(true);
-            return setPasswordConfirmFeedback({
-                valid: true,
-                message: " matches",
-            });
-        }
-
-        return setPasswordConfirmFeedback({
-            valid: false,
-            message: " does not match",
-        });
+        validateConfirmPassword(
+            value,
+            password,
+            setPasswordConfirm,
+            setPasswordConfirmFeedback
+        );
     };
 
     return (
