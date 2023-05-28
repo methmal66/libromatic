@@ -4,7 +4,7 @@ import "../styles/Header.css";
 import Avatar from "./Avatar";
 
 const Header = () => {
-    const [user, setUser] = useContext(UserContext);
+    const [user] = useContext(UserContext);
 
     return (
         <div className="header">

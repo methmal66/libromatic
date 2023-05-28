@@ -5,17 +5,12 @@ import Header from "./Header";
 import "../styles/Home.css";
 
 const Home = () => {
-    const [user, setUser] = useContext(UserContext);
+    const [user] = useContext(UserContext);
     const navigate = useNavigate();
 
     useEffect(() => {
         if (!user) navigate("/login");
     }, [user]);
-
-    const handleLogout = () => {
-        setUser(null);
-        navigate("/login");
-    };
 
     if (!user) {
         return null;
@@ -24,9 +19,6 @@ const Home = () => {
     return (
         <div className="home">
             <Header />
-            <button className="logout" onClick={handleLogout}>
-                Logout
-            </button>
         </div>
     );
 };

@@ -6,6 +6,7 @@ import UserContext from "../contexts/UserContext";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState } from "react";
 
+//FIXME - User get deleted on refresh
 const App = () => {
     const [user, setUser] = useState(null);
 

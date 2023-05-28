@@ -1,18 +1,26 @@
 import defaultProfilePic from "../images/default-profile-pic.jpg";
 import "../styles/Avatar.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import UserContext from "../contexts/UserContext";
+import Modal from "./Modal";
 
+//TODO - Popup modal on click
 const Avatar = () => {
     const [user] = useContext(UserContext);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleOnClick = () => {
+        setIsModalOpen(!isModalOpen);
+    };
 
     return (
-        <div className="avatar">
+        <div className="avatar" onClick={handleOnClick}>
             <img
-                className="profile-pic"
+                className="avatar-pic"
                 src={user.profilePic ? user.profilePic : defaultProfilePic}
-                alt="profile-pic"
+                alt="Profile pic"
             />
+            {isModalOpen && <Modal />}
         </div>
     );
 };
