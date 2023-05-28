@@ -11,8 +11,6 @@ import {
 } from "../validations/userValidations";
 import { registerUser } from "../services/userServices";
 
-//TODO - Center this div properly
-//TODO - Add colos to forms
 const Register = () => {
     const username = useRef(null);
     const email = useRef(null);

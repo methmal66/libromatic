@@ -1,9 +1,9 @@
 import { useEffect, useContext } from "react";
-import defaultProfilePic from "../images/default-profile-pic.png";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
+import Header from "./Header";
+import "../styles/Home.css";
 
-//TODO - Read user from useContext
 const Home = () => {
     const [user, setUser] = useContext(UserContext);
     const navigate = useNavigate();
@@ -11,10 +11,6 @@ const Home = () => {
     useEffect(() => {
         if (!user) navigate("/login");
     }, [user]);
-
-    const handleImageNotFound = (e) => {
-        e.target.src = defaultProfilePic;
-    };
 
     const handleLogout = () => {
         setUser(null);
@@ -27,13 +23,10 @@ const Home = () => {
 
     return (
         <div className="home">
-            <h1>Welcome {user.username}</h1>
-            <img
-                src={user.profilePicture}
-                alt="Profile Pic"
-                onError={handleImageNotFound}
-            />
-            <button onClick={handleLogout}>Logout</button>
+            <Header />
+            <button className="logout" onClick={handleLogout}>
+                Logout
+            </button>
         </div>
     );
 };
