@@ -1,0 +1,22 @@
+.modal-item {
+    height: 30px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.modal-item:hover {
+    background-color: white;
+}
+
+.modal-item-text {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.modal-item-logout {
+    font-size: 1rem;
+    font-weight: normal;
+    color: red;
+    cursor: pointer;
+}
