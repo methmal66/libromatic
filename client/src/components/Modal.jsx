@@ -22,9 +22,7 @@ const Modal = () => {
             <ModalItem path="/settings">Settings</ModalItem>
             <ModalItem path="/cart">My Cart</ModalItem>
             <ModalItem path="/orders">My Orders</ModalItem>
-            <ModalItem path="/logout" logout>
-                Logout
-            </ModalItem>
+            <ModalItem logout>Logout</ModalItem>
         </div>
     );
 };
