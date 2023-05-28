@@ -6,6 +6,7 @@ import "../styles/FormInput.css";
 import { loginUser } from "../services/userServices";
 import UserContext from "../contexts/UserContext";
 
+//TODO - Add feature to remember user
 const Login = () => {
     const email = useRef(null);
     const password = useRef(null);
