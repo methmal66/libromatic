@@ -56,26 +56,30 @@ async function login(req, res) {
                 .json({ message: "Invalid email or password!" });
         }
 
-        const token = jwt.sign({ userId: user._id }, "your-secret-key", {
+        const token = jwt.sign({ id: user._id }, "your-secret-key", {
             expiresIn: "1d",
         });
 
-        const updatedUser = {
-            id: user._id,
-            username: user.username,
-            email: user.email,
-            profilePicture: user.profilePicture,
-            token,
-        };
         res.status(200).json({
             message: "Login successful!",
-            user: updatedUser,
+            token,
         });
     } catch (error) {
+        console.log(error);
         res.status(400).json({ message: "Required fields are missing!" });
     }
 }
 
+async function me(req, res) {
+    const userId = req.userId;
+    const user = await User.findById(userId);
+    if (!user) {
+        return res.status(404).json({ message: "User not found!" });
+    }
+    return res.status(200).json({ message: "User info sent!", user });
+}
+
+//TODO - Return only username or password
 async function findByUsername(req, res) {
     try {
         const username = req.query.username;
@@ -105,6 +109,7 @@ async function findByEmail(req, res) {
 module.exports = {
     register,
     login,
+    me,
     findByUsername,
     findByEmail,
 };

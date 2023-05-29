@@ -14,24 +14,32 @@ export const registerUser = (user, navigate) => {
         .catch((error) => alert(error));
 };
 
-export const loginUser = async (user) => {
-    try {
-        const response = await fetch("http://localhost:8080/users/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(user),
-        });
-        const data = await response.json();
-        alert(data.message);
-        const loggedUser = data.user;
-        return loggedUser;
-    } catch (error) {
-        alert(error);
-    }
+export const loginUser = (user) => {
+    return fetch("http://localhost:8080/users/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+    })
+        .then((res) => res.json())
+        .then((data) => data.token);
 };
 
+export const getMe = () => {
+    const token = localStorage.getItem("libromatic_token");
+    return fetch("http://localhost:8080/users/me", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then((res) => res.json())
+        .then((data) => data.user);
+};
+
+//TODO - Return only boolean value
 export const findUserByUsername = async (username) => {
     const request = await fetch(
         "http://localhost:8080/users/findByUsername?username=" + username,

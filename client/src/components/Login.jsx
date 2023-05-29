@@ -1,34 +1,33 @@
-import { useContext, useEffect, useRef } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useRef } from "react";
+import { Link } from "react-router-dom";
 import FormInput from "./FormInput";
 import FormSubmit from "./FormSubmit";
 import "../styles/FormInput.css";
 import { loginUser } from "../services/userServices";
-import UserContext from "../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
 //TODO - Add feature to remember user
 const Login = () => {
     const email = useRef(null);
     const password = useRef(null);
     const navigate = useNavigate();
-    const user = useContext(UserContext);
-
-    useEffect(() => {
-        if (user.data) navigate("/");
-    }, [user]);
 
     const handleChange = (e) => {
         if (e.target.name === "Email") email.current = e.target.value;
         if (e.target.name === "Password") password.current = e.target.value;
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        const loggedUser = await loginUser({
+        loginUser({
             email: email.current,
             password: password.current,
-        });
-        user.actions.setUser(loggedUser);
+        })
+            .then((token) => {
+                localStorage.setItem("libromatic_token", token);
+                navigate("/");
+            })
+            .catch((err) => console.log(err));
     };
 
     return (
