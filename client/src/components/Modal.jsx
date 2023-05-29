@@ -5,19 +5,19 @@ import defaultProfilePic from "../images/default-profile-pic.jpg";
 import ModalItem from "./ModalItem";
 
 const Modal = () => {
-    const [user] = useContext(UserContext);
+    const user = useContext(UserContext);
 
     return (
         <div className="modal">
             <div>
                 <img
-                    src={user.profilePic ? user.profilePic : defaultProfilePic}
+                    src={defaultProfilePic}
                     alt="Profile pic"
                     className="modal-pic"
                 />
             </div>
-            <div className="modal-username">{user.username}</div>
-            <div className="modal-email">{user.email}</div>
+            <div className="modal-username">{user.data.username}</div>
+            <div className="modal-email">{user.data.email}</div>
             <ModalItem path="/profile">Profile</ModalItem>
             <ModalItem path="/settings">Settings</ModalItem>
             <ModalItem path="/cart">My Cart</ModalItem>

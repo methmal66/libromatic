@@ -11,10 +11,10 @@ const Login = () => {
     const email = useRef(null);
     const password = useRef(null);
     const navigate = useNavigate();
-    const [user, setUser] = useContext(UserContext);
+    const user = useContext(UserContext);
 
     useEffect(() => {
-        if (user) navigate("/");
+        if (user.data) navigate("/");
     }, [user]);
 
     const handleChange = (e) => {
@@ -28,7 +28,7 @@ const Login = () => {
             email: email.current,
             password: password.current,
         });
-        setUser(loggedUser);
+        user.actions.setUser(loggedUser);
     };
 
     return (

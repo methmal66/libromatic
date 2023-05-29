@@ -5,7 +5,7 @@ import Header from "./Header";
 import "../styles/Home.css";
 
 const Home = () => {
-    const [user] = useContext(UserContext);
+    const user = useContext(UserContext);
     const navigate = useNavigate();
 
     useEffect(() => {

@@ -5,11 +5,11 @@ import { useContext } from "react";
 
 const ModalItem = ({ children, path, logout }) => {
     const navigate = useNavigate();
-    const [user, setUser] = useContext(UserContext);
+    const user = useContext(UserContext);
 
     const handleOnClick = () => {
         if (logout) {
-            setUser(null);
+            user.actions.removeUser();
             navigate("/login");
             return;
         }

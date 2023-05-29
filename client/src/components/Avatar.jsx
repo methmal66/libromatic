@@ -6,7 +6,7 @@ import Modal from "./Modal";
 
 //TODO - Popup modal on click
 const Avatar = () => {
-    const [user] = useContext(UserContext);
+    const user = useContext(UserContext);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleOnClick = () => {
@@ -17,7 +17,7 @@ const Avatar = () => {
         <div className="avatar" onClick={handleOnClick}>
             <img
                 className="avatar-pic"
-                src={user.profilePic ? user.profilePic : defaultProfilePic}
+                src={defaultProfilePic}
                 alt="Profile pic"
             />
             {isModalOpen && <Modal />}

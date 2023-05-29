@@ -4,15 +4,14 @@ import Login from "./Login";
 import Home from "./Home";
 import UserContext from "../contexts/UserContext";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useState } from "react";
+import usePresistUser from "../hooks/usePresistUser";
 
-//FIXME - User get deleted on refresh
 const App = () => {
-    const [user, setUser] = useState(null);
+    const user = usePresistUser();
 
     return (
         <div className="app">
-            <UserContext.Provider value={[user, setUser]}>
+            <UserContext.Provider value={user}>
                 <BrowserRouter>
                     <Routes>
                         <Route path="/register" element={<Register />} />
