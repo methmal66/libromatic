@@ -4,11 +4,10 @@ import Modal from "./Modal";
 import { useState } from "react";
 
 //TODO - Popup modal on click
-const Avatar = () => {
+const Avatar = ({ user }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleOnClick = () => {
-        console.log("clicked on avatar");
         setIsModalOpen(!isModalOpen);
     };
 
@@ -19,7 +18,7 @@ const Avatar = () => {
                 src={defaultProfilePic}
                 alt="Profile pic"
             />
-            {isModalOpen && <Modal />}
+            {isModalOpen && <Modal user={user && user} />}
         </div>
     );
 };

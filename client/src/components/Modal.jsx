@@ -4,15 +4,7 @@ import ModalItem from "./ModalItem";
 import { useEffect, useState } from "react";
 import { getMe } from "../services/userServices";
 
-const Modal = () => {
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        getMe()
-            .then((user) => setUser(user))
-            .catch((err) => console.log(err));
-    }, []);
-
+const Modal = ({ user }) => {
     return (
         <div className="modal">
             <div>
