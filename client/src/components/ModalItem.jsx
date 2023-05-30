@@ -1,12 +1,16 @@
 import "../styles/ModalItem.css";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "./App";
 
 const ModalItem = ({ children, path, logout }) => {
     const navigate = useNavigate();
+    const [user, setUser] = useContext(UserContext);
 
     const handleOnClick = () => {
         if (logout) {
             localStorage.removeItem("libromatic_token");
+            setUser(null);
             navigate("/login");
             return;
         }

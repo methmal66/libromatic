@@ -1,19 +1,19 @@
 import Header from "./Header";
 import "../styles/Home.css";
-import Login from "./Login";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { UserContext } from "./App";
 
 const Home = () => {
-    const token = localStorage.getItem("libromatic_token");
     const navigate = useNavigate();
+    const [user] = useContext(UserContext);
 
     useEffect(() => {
-        if (!token) navigate("/login");
+        if (!user) navigate("/login");
     }, []);
 
     return (
-        token && (
+        user && (
             <div className="home">
                 <Header />
             </div>

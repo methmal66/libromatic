@@ -1,10 +1,12 @@
 import "../styles/Modal.css";
 import defaultProfilePic from "../images/default-profile-pic.jpg";
 import ModalItem from "./ModalItem";
-import { useEffect, useState } from "react";
-import { getMe } from "../services/userServices";
+import { useContext } from "react";
+import { UserContext } from "./App";
 
-const Modal = ({ user }) => {
+const Modal = () => {
+    const [user] = useContext(UserContext);
+
     return (
         <div className="modal">
             <div>
@@ -14,8 +16,8 @@ const Modal = ({ user }) => {
                     className="modal-pic"
                 />
             </div>
-            <div className="modal-username">{user && user.username}</div>
-            <div className="modal-email">{user && user.email}</div>
+            <div className="modal-username">{user.username}</div>
+            <div className="modal-email">{user.email}</div>
             <ModalItem path="/profile">Profile</ModalItem>
             <ModalItem path="/settings">Settings</ModalItem>
             <ModalItem path="/cart">My Cart</ModalItem>

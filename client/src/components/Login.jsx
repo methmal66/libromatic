@@ -1,15 +1,17 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import FormInput from "./FormInput";
 import FormSubmit from "./FormSubmit";
 import "../styles/FormInput.css";
-import { loginUser } from "../services/userServices";
+import { getMe, loginUser } from "../services/userServices";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "./App";
 
 //TODO - Add feature to remember user
 const Login = () => {
     const email = useRef(null);
     const password = useRef(null);
+    const [user, setUser] = useContext(UserContext);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -23,10 +25,9 @@ const Login = () => {
             email: email.current,
             password: password.current,
         })
-            .then((token) => {
-                localStorage.setItem("libromatic_token", token);
-                navigate("/");
-            })
+            .then(() => getMe())
+            .then((user) => setUser(user))
+            .then(() => navigate("/"))
             .catch((err) => console.log(err));
     };
 

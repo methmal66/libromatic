@@ -4,7 +4,7 @@ import Modal from "./Modal";
 import { useState } from "react";
 
 //TODO - Popup modal on click
-const Avatar = ({ user }) => {
+const Avatar = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleOnClick = () => {
@@ -18,7 +18,7 @@ const Avatar = ({ user }) => {
                 src={defaultProfilePic}
                 alt="Profile pic"
             />
-            {isModalOpen && <Modal user={user && user} />}
+            {isModalOpen && <Modal />}
         </div>
     );
 };
