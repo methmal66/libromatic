@@ -1,4 +1,4 @@
-# Bookstore Management System
+# Libromatic
 
 ## What did I learn from this project?
 
