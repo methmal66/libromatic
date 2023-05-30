@@ -1,14 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
-const authenticate = require("../middlewares/authenticate");
+const authenticateUser = require("../middlewares/authenticateUser");
+const authenticateDeveloper = require("../middlewares/authenticateDeveloper");
 
-// Route for user registration
 router.post("/register", userController.register);
 router.post("/login", userController.login);
-router.get("/me", authenticate, userController.me);
-//TODO - Authenticate using developer token
-router.get("/isUsernameExist", userController.isUsernameExist);
-router.get("/isEmailExist", userController.isEmailExist);
+router.get("/me", authenticateUser, userController.me);
+router.get(
+    "/isUsernameExist",
+    authenticateDeveloper,
+    userController.isUsernameExist
+);
+router.get("/isEmailExist", authenticateDeveloper, userController.isEmailExist);
 
 module.exports = router;

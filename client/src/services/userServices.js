@@ -1,3 +1,6 @@
+const developer_token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZlbG9wZXIiOiJtZXRobWFsIiwiaWF0IjoxNjg1NDI0NjMzLCJleHAiOjMyNjMzMDQ2MzN9.oyO9mCWMncOGGY5dITU8KH0rh_triN35HfZNNFTd7lc";
+
 export const registerUser = (user, navigate) => {
     fetch("http://localhost:8080/users/register", {
         method: "POST",
@@ -45,6 +48,10 @@ export const isUsernameExist = async (username) => {
         "http://localhost:8080/users/isUsernameExist?username=" + username,
         {
             method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${developer_token}`,
+            },
         }
     );
     const data = await response.json();
@@ -58,6 +65,10 @@ export const isEmailExist = async (email) => {
         "http://localhost:8080/users/isEmailExist?email=" + email,
         {
             method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${developer_token}`,
+            },
         }
     );
     const data = await response.json();
