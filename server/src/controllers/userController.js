@@ -79,30 +79,44 @@ async function me(req, res) {
     return res.status(200).json({ message: "User info sent!", user });
 }
 
-//TODO - Return only username or password
-async function findByUsername(req, res) {
+async function isUsernameExist(req, res) {
     try {
         const username = req.query.username;
+        if (!username)
+            return res
+                .status(400)
+                .json({ message: "Username field is missing!" });
+
         const user = await User.findOne({ username });
         if (user) {
-            return res.status(200).json({ message: "User found!", user });
+            return res
+                .status(200)
+                .json({ message: "Username found!", status: true });
         }
-        res.status(404).json({ message: "User not found!" });
+
+        res.status(404).json({ message: "Username not found!", status: false });
     } catch (error) {
-        res.status(400).json({ message: "Username field is missing!" });
+        res.status(400).json({ message: "An error occured!", error });
     }
 }
 
-async function findByEmail(req, res) {
+async function isEmailExist(req, res) {
     try {
         const email = req.query.email;
+        if (!email) {
+            return res.status(400).json({ message: "Email field is missing!" });
+        }
+
         const user = await User.findOne({ email });
         if (user) {
-            return res.status(200).json({ message: "User found!", user });
+            return res
+                .status(200)
+                .json({ message: "Email found!", status: true });
         }
-        res.status(404).json({ message: "User not found!" });
+
+        res.status(404).json({ message: "Email not found!", status: false });
     } catch (error) {
-        res.status(400).json({ message: "Email field is missing!" });
+        res.status(400).json({ message: "An error occured!", error });
     }
 }
 
@@ -110,6 +124,6 @@ module.exports = {
     register,
     login,
     me,
-    findByUsername,
-    findByEmail,
+    isUsernameExist,
+    isEmailExist,
 };

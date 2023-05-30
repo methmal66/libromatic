@@ -7,7 +7,6 @@ import { getMe, loginUser } from "../services/userServices";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "./App";
 
-//TODO - Add feature to remember user
 const Login = () => {
     const email = useRef(null);
     const password = useRef(null);

@@ -1,11 +1,11 @@
-import { findUserByUsername, findUserByEmail } from "../services/userServices";
+import { isUsernameExist, isEmailExist } from "../services/userServices";
 
 export const isUsernameValid = async (input) => {
     const pattern = /^[a-zA-Z0-9_]{4,16}$/;
 
     if (pattern.test(input)) {
-        const user = await findUserByUsername(input);
-        if (user) {
+        const exist = await isUsernameExist(input);
+        if (exist) {
             return {
                 valid: false,
                 message: " is already taken",
@@ -39,8 +39,8 @@ export const isEmailValid = async (input) => {
     const pattern = /^[\w.-]+@[a-zA-Z_-]+?(?:\.[a-zA-Z]{2,})+$/;
 
     if (pattern.test(input)) {
-        const user = await findUserByEmail(input);
-        if (user) {
+        const exist = await isEmailExist(input);
+        if (exist) {
             return {
                 valid: false,
                 message: " is already taken",

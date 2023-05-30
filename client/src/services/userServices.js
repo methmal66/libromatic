@@ -40,28 +40,28 @@ export const getMe = () => {
         .then((data) => data.user);
 };
 
-//TODO - Return only boolean value
-export const findUserByUsername = async (username) => {
-    const request = await fetch(
-        "http://localhost:8080/users/findByUsername?username=" + username,
+export const isUsernameExist = async (username) => {
+    const response = await fetch(
+        "http://localhost:8080/users/isUsernameExist?username=" + username,
         {
             method: "GET",
         }
     );
-    const response = await request.json();
-    const user = response.user;
-    console.log(user);
-    return user;
+    const data = await response.json();
+    const status = data.status;
+    console.log("Username exists? " + status);
+    return status;
 };
 
-export const findUserByEmail = async (email) => {
-    const request = await fetch(
-        "http://localhost:8080/users/findByEmail?email=" + email,
+export const isEmailExist = async (email) => {
+    const response = await fetch(
+        "http://localhost:8080/users/isEmailExist?email=" + email,
         {
             method: "GET",
         }
     );
-    const response = await request.json();
-    const user = response.user;
-    return user;
+    const data = await response.json();
+    const status = data.status;
+    console.log("Email exists? " + status);
+    return status;
 };

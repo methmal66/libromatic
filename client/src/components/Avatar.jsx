@@ -3,7 +3,6 @@ import "../styles/Avatar.css";
 import Modal from "./Modal";
 import { useState } from "react";
 
-//TODO - Popup modal on click
 const Avatar = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
