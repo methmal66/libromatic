@@ -37,6 +37,7 @@ const Login = () => {
                 <Grid item xs={12}>
                     <TextField
                         fullWidth
+                        name="Email"
                         label="Email"
                         variant="outlined"
                         onChange={handleChange}
@@ -45,6 +46,8 @@ const Login = () => {
                 <Grid item xs={12}>
                     <TextField
                         fullWidth
+                        type="password"
+                        name="Password"
                         label="Password"
                         onChange={handleChange}
                         password
