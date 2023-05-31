@@ -3,13 +3,17 @@ import "../styles/Home.css";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { UserContext } from "./App";
+import { getMe } from "../services/userServices";
 
 const Home = () => {
     const navigate = useNavigate();
-    const [user] = useContext(UserContext);
+    const [user, setUser] = useContext(UserContext);
 
     useEffect(() => {
-        if (!user) navigate("/login");
+        getMe().then((user) => {
+            if (!user) navigate("/login");
+            else setUser(user);
+        });
     }, []);
 
     return (
