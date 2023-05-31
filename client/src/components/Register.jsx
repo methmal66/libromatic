@@ -1,7 +1,5 @@
 import { useRef, useState } from "react";
 import "../styles/Register.css";
-import FormInput from "./FormInput";
-import FormSubmit from "./FormSubmit";
 import { Link, useNavigate } from "react-router-dom";
 import {
     isUsernameValid,
@@ -9,18 +7,22 @@ import {
     isPasswordValid,
     isConfirmPasswordValid,
 } from "../validations/userValidations";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
 import { registerUser } from "../services/userServices";
+import Box from "@mui/material/Box";
 
 const Register = () => {
     const username = useRef(null);
     const email = useRef(null);
     const password = useRef(null);
     const passwordConfirm = useRef(false);
-    const [usernameFeedback, setUsernameFeedback] = useState({ valid: false });
-    const [emailFeedback, setEmailFeedback] = useState({ valid: false });
-    const [passwordFeedback, setPasswordFeedback] = useState({ valid: false });
+    const [usernameFeedback, setUsernameFeedback] = useState({ valid: true });
+    const [emailFeedback, setEmailFeedback] = useState({ valid: true });
+    const [passwordFeedback, setPasswordFeedback] = useState({ valid: true });
     const [passwordConfirmFeedback, setPasswordConfirmFeedback] = useState({
-        valid: false,
+        valid: true,
     });
     const navigate = useNavigate();
 
@@ -71,46 +73,71 @@ const Register = () => {
     };
 
     return (
-        <div className="register">
-            <form className="register-form">
-                <FormInput
-                    name="Username"
-                    placeholder="methmal13"
-                    handler={handleUsernameChange}
-                    feedback={usernameFeedback}
-                />
-                <FormInput
-                    name="Email"
-                    placeholder="methmal@example.com"
-                    handler={handleEmailChange}
-                    feedback={emailFeedback}
-                />
-                <FormInput
-                    name="Password"
-                    placeholder="Enter a strong password"
-                    handler={handlePasswordChange}
-                    feedback={passwordFeedback}
-                    password
-                />
-                <FormInput
-                    name="Password Confirm"
-                    placeholder="Enter the password again"
-                    handler={handleConfirmPasswordChange}
-                    feedback={passwordConfirmFeedback}
-                    password
-                />
-                <FormSubmit
-                    handler={handleSubmit}
-                    disabled={
-                        !username.current ||
-                        !email.current ||
-                        !password.current ||
-                        !passwordConfirm.current
-                    }
-                />
-            </form>
-            <Link to="/login">Already have an account?</Link>
-        </div>
+        <Box className="register">
+            <Grid container spacing={3}>
+                <Grid item xs={12}>
+                    <TextField
+                        fullWidth
+                        label="Username"
+                        variant="outlined"
+                        error={!usernameFeedback.valid}
+                        helperText={usernameFeedback.message}
+                        onChange={handleUsernameChange}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        fullWidth
+                        label="Email"
+                        variant="outlined"
+                        error={!emailFeedback.valid}
+                        helperText={emailFeedback.message}
+                        onChange={handleEmailChange}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        fullWidth
+                        type="password"
+                        label="Password"
+                        variant="outlined"
+                        error={!passwordFeedback.valid}
+                        helperText={passwordFeedback.message}
+                        onChange={handlePasswordChange}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        fullWidth
+                        type="password"
+                        label="Confirm Password"
+                        variant="outlined"
+                        error={!passwordConfirmFeedback.valid}
+                        helperText={passwordConfirmFeedback.message}
+                        onChange={handleConfirmPasswordChange}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <Button
+                        fullWidth
+                        size="large"
+                        variant="contained"
+                        onClick={handleSubmit}
+                        disabled={
+                            !username.current ||
+                            !email.current ||
+                            !password.current ||
+                            !passwordConfirm.current
+                        }
+                    >
+                        Register
+                    </Button>
+                </Grid>
+            </Grid>
+            <div className="register-link">
+                <Link to="/login">Already have an account?</Link>
+            </div>
+        </Box>
     );
 };
 
