@@ -1,17 +1,24 @@
-import "../styles/App.css";
 import Register from "./Register";
 import Login from "./Login";
 import Home from "./Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState, createContext } from "react";
+import styled from "styled-components";
 
 export const UserContext = createContext();
+
+const Div = styled.div`
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
 
 const App = () => {
     const [user, setUser] = useState(null);
 
     return (
-        <div className="app">
+        <Div>
             <UserContext.Provider value={[user, setUser]}>
                 <BrowserRouter>
                     <Routes>
@@ -21,7 +28,7 @@ const App = () => {
                     </Routes>
                 </BrowserRouter>
             </UserContext.Provider>
-        </div>
+        </Div>
     );
 };
 
