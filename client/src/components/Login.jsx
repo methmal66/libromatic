@@ -1,11 +1,12 @@
 import { useContext, useRef } from "react";
 import { Link } from "react-router-dom";
-import FormInput from "./FormInput";
-import FormSubmit from "./FormSubmit";
 import "../styles/FormInput.css";
 import { getMe, loginUser } from "../services/userServices";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "./App";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 const Login = () => {
     const email = useRef(null);
@@ -32,23 +33,38 @@ const Login = () => {
 
     return (
         <div className="register">
-            <form>
-                <FormInput
-                    name="Email"
-                    placeholder="methmal@example.com"
-                    handler={handleChange}
-                    feedback={() => {}}
-                />
-                <FormInput
-                    name="Password"
-                    placeholder="Enter a strong password"
-                    handler={handleChange}
-                    feedback={() => {}}
-                    password
-                />
-                <FormSubmit text="Login" handler={handleSubmit} />
-            </form>
-            <Link to="/register">Let's create an account?</Link>
+            <Grid container spacing={3}>
+                <Grid item xs={12}>
+                    <TextField
+                        fullWidth
+                        label="Email"
+                        variant="outlined"
+                        onChange={handleChange}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        fullWidth
+                        label="Password"
+                        onChange={handleChange}
+                        password
+                    />
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Button
+                        fullWidth
+                        size="large"
+                        variant="contained"
+                        onClick={handleSubmit}
+                    >
+                        Login
+                    </Button>
+                </Grid>
+            </Grid>
+            <div className="register-link">
+                <Link to="/register">Let's create an account?</Link>
+            </div>
         </div>
     );
 };

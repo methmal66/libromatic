@@ -11,7 +11,6 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import { registerUser } from "../services/userServices";
-import Box from "@mui/material/Box";
 
 const Register = () => {
     const username = useRef(null);
@@ -73,7 +72,7 @@ const Register = () => {
     };
 
     return (
-        <Box className="register">
+        <div className="register">
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <TextField
@@ -137,7 +136,7 @@ const Register = () => {
             <div className="register-link">
                 <Link to="/login">Already have an account?</Link>
             </div>
-        </Box>
+        </div>
     );
 };
 
