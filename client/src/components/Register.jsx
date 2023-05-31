@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import "../styles/Register.css";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -7,115 +7,81 @@ import {
     isPasswordValid,
     isConfirmPasswordValid,
 } from "../validations/userValidations";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
+import SignTextField from "./SignTextField";
 import { registerUser } from "../services/userServices";
 
 const Register = () => {
-    const username = useRef(null);
-    const email = useRef(null);
-    const password = useRef(null);
-    const passwordConfirm = useRef(false);
-    const [usernameFeedback, setUsernameFeedback] = useState({ valid: true });
-    const [emailFeedback, setEmailFeedback] = useState({ valid: true });
-    const [passwordFeedback, setPasswordFeedback] = useState({ valid: true });
-    const [passwordConfirmFeedback, setPasswordConfirmFeedback] = useState({
+    const [username, setUsername] = useState({
         valid: true,
+        validator: isUsernameValid,
     });
+    const [email, setEmail] = useState({
+        valid: true,
+        validator: isEmailValid,
+    });
+    const [password, setPassword] = useState({
+        valid: true,
+        validator: isPasswordValid,
+    });
+
+    const [passwordConfirm, setPasswordConfirm] = useState({
+        valid: true,
+        validator: (value) => isConfirmPasswordValid(value, password.value),
+    });
+
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         registerUser(
             {
-                username: username.current,
-                email: email.current,
-                password: password.current,
+                username: username.value,
+                email: email.value,
+                password: password.value,
             },
             navigate
         );
-    };
-
-    const handleUsernameChange = async (e) => {
-        const value = e.target.value;
-        const { valid, message } = await isUsernameValid(value);
-        setUsernameFeedback({ valid, message });
-        if (valid) username.current = value;
-        else username.current = null;
-    };
-
-    const handleEmailChange = async (e) => {
-        const value = e.target.value;
-        const { valid, message } = await isEmailValid(value);
-        setEmailFeedback({ valid, message });
-        if (valid) email.current = value;
-        else email.current = null;
-    };
-
-    const handlePasswordChange = (e) => {
-        const value = e.target.value;
-        const { valid, message } = isPasswordValid(value);
-        setPasswordFeedback({ valid, message });
-        if (valid) password.current = value;
-        else password.current = null;
     };
 
     const handleConfirmPasswordChange = (e) => {
         const value = e.target.value;
         const { valid, message } = isConfirmPasswordValid(
             value,
-            password.current
+            password.value
         );
-        setPasswordConfirmFeedback({ valid, message });
-        passwordConfirm.current = valid;
+        setPasswordConfirm({ valid, message, value: valid ? value : null });
     };
 
     return (
         <div className="register">
             <Grid container spacing={3}>
-                <Grid item xs={12}>
-                    <TextField
-                        fullWidth
-                        label="Username"
-                        variant="outlined"
-                        error={!usernameFeedback.valid}
-                        helperText={usernameFeedback.message}
-                        onChange={handleUsernameChange}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        fullWidth
-                        label="Email"
-                        variant="outlined"
-                        error={!emailFeedback.valid}
-                        helperText={emailFeedback.message}
-                        onChange={handleEmailChange}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        fullWidth
-                        type="password"
-                        label="Password"
-                        variant="outlined"
-                        error={!passwordFeedback.valid}
-                        helperText={passwordFeedback.message}
-                        onChange={handlePasswordChange}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        fullWidth
-                        type="password"
-                        label="Confirm Password"
-                        variant="outlined"
-                        error={!passwordConfirmFeedback.valid}
-                        helperText={passwordConfirmFeedback.message}
-                        onChange={handleConfirmPasswordChange}
-                    />
-                </Grid>
+                <SignTextField
+                    state={username}
+                    setState={setUsername}
+                    label="Username"
+                />
+                <SignTextField
+                    state={email}
+                    setState={setEmail}
+                    label="Email"
+                />
+
+                <SignTextField
+                    state={password}
+                    setState={setPassword}
+                    label="Password"
+                    password
+                />
+
+                <SignTextField
+                    state={passwordConfirm}
+                    setState={setPasswordConfirm}
+                    label="Confirm Password"
+                    password
+                    handleChange={handleConfirmPasswordChange}
+                />
                 <Grid item xs={12}>
                     <Button
                         fullWidth
@@ -123,10 +89,10 @@ const Register = () => {
                         variant="contained"
                         onClick={handleSubmit}
                         disabled={
-                            !username.current ||
-                            !email.current ||
-                            !password.current ||
-                            !passwordConfirm.current
+                            !username.value ||
+                            !email.value ||
+                            !password.value ||
+                            !passwordConfirm.value
                         }
                     >
                         Register
