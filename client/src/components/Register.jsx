@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "../styles/Register.css";
 import { Link, useNavigate } from "react-router-dom";
 import {
     isUsernameValid,
@@ -11,6 +10,23 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import SignTextField from "./SignTextField";
 import { registerUser } from "../services/userServices";
+import styled from "styled-components";
+
+const Div = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    padding: 15px;
+    width: 300px;
+    border: 1px solid #aaaaaa;
+    border-radius: 8px;
+    background-color: rgb(250, 250, 250);
+`;
+
+const TopGap = styled.div`
+    margin-top: 25px;
+`;
 
 const Register = () => {
     const [username, setUsername] = useState({
@@ -55,7 +71,7 @@ const Register = () => {
     };
 
     return (
-        <div className="register">
+        <Div>
             <Grid container spacing={3}>
                 <SignTextField
                     state={username}
@@ -99,10 +115,10 @@ const Register = () => {
                     </Button>
                 </Grid>
             </Grid>
-            <div className="register-link">
+            <TopGap>
                 <Link to="/login">Already have an account?</Link>
-            </div>
-        </div>
+            </TopGap>
+        </Div>
     );
 };
 

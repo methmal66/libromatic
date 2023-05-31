@@ -1,9 +1,26 @@
-import "../styles/ModalItem.css";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "./App";
+import styled from "styled-components";
 
-const ModalItem = ({ children, path, logout }) => {
+const Div = styled.div`
+    height: 30px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+
+    :hover {
+        background-color: white;
+    }
+`;
+
+const Text = styled.span`
+    font-size: 1rem;
+    font-weight: normal;
+    color: ${(props) => (props.color === "red" ? "red" : "black")};
+`;
+
+const ModalItem = ({ children, path, logout, color }) => {
     const navigate = useNavigate();
     const [user, setUser] = useContext(UserContext);
 
@@ -18,12 +35,9 @@ const ModalItem = ({ children, path, logout }) => {
     };
 
     return (
-        <div
-            className={logout ? "modal-item modal-item-logout" : "modal-item"}
-            onClick={handleOnClick}
-        >
-            <span className="modal-item-text">{children}</span>
-        </div>
+        <Div onClick={handleOnClick}>
+            <Text color={color}>{children}</Text>
+        </Div>
     );
 };
 

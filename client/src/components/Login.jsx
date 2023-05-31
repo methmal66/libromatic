@@ -6,6 +6,23 @@ import { UserContext } from "./App";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import styled from "styled-components";
+
+const Div = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    padding: 15px;
+    width: 300px;
+    border: 1px solid #aaaaaa;
+    border-radius: 8px;
+    background-color: rgb(250, 250, 250);
+`;
+
+const TopGap = styled.div`
+    margin-top: 15px;
+`;
 
 const Login = () => {
     const email = useRef(null);
@@ -31,7 +48,7 @@ const Login = () => {
     };
 
     return (
-        <div className="register">
+        <Div>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <TextField
@@ -49,10 +66,8 @@ const Login = () => {
                         name="Password"
                         label="Password"
                         onChange={handleChange}
-                        password
                     />
                 </Grid>
-
                 <Grid item xs={12}>
                     <Button
                         fullWidth
@@ -64,10 +79,10 @@ const Login = () => {
                     </Button>
                 </Grid>
             </Grid>
-            <div className="register-link">
+            <TopGap>
                 <Link to="/register">Let's create an account?</Link>
-            </div>
-        </div>
+            </TopGap>
+        </Div>
     );
 };
 
