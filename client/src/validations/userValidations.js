@@ -59,7 +59,7 @@ export const isEmailValid = async (input) => {
 
 export const isPasswordValid = (input) => {
     const pattern =
-        /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()])[a-zA-Z0-9!@#$%^&*()]{8,16}$/;
+        /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()])[a-zA-Z0-9!@#$%^&*()]{8,70}$/;
 
     if (pattern.test(input)) {
         return {
