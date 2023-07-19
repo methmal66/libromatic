@@ -1,4 +1,4 @@
-import { isUsernameExist, isEmailExist } from "../services/userServices";
+import { isUsernameExist, isEmailExist } from "./services";
 
 export const isUsernameValid = async (input) => {
     const pattern = /^[a-zA-Z0-9_]{4,16}$/;

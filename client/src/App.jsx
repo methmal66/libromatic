@@ -1,6 +1,6 @@
-import Register from "./Register";
-import Login from "./Login";
-import Home from "./Home";
+import Register from "./login/Register";
+import Login from "./login/Login";
+import Home from "./home/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState, createContext } from "react";
 import styled from "styled-components";

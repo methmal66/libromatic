@@ -5,11 +5,11 @@ import {
     isEmailValid,
     isPasswordValid,
     isConfirmPasswordValid,
-} from "../validations/userValidations";
+} from "./validations";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import SignTextField from "./SignTextField";
-import { registerUser } from "../services/userServices";
+import { registerUser } from "./services";
 import styled from "styled-components";
 
 const Div = styled.div`
