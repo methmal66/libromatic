@@ -1,8 +1,8 @@
-import Header from "./Header";
+import Header from "../header/Header";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
-import { UserContext } from "./App";
-import { getMe } from "../services/userServices";
+import { UserContext } from "../App";
+import { getMe } from "../login/services";
 import styled from "styled-components";
 
 const Div = styled.div`

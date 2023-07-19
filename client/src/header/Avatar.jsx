@@ -1,7 +1,7 @@
-import defaultProfilePic from "../images/default-profile-pic.jpg";
+import defaultProfilePic from "./default-profile-pic.jpg";
 import Modal from "./Modal";
 import { useState, useContext } from "react";
-import { UserContext } from "./App";
+import { UserContext } from "../App";
 import styled from "styled-components";
 
 const Div = styled.div`
