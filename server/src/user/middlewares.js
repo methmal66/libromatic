@@ -18,7 +18,7 @@ const authenticateUser = (req, res, next) => {
     }
 };
 
-const authenticate = (req, res, next) => {
+const authenticateDeveloper = (req, res, next) => {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(" ")[1];
 
@@ -36,4 +36,4 @@ const authenticate = (req, res, next) => {
     }
 };
 
-module.exports = { authenticateUser, authenticate };
+module.exports = { authenticateUser, authenticateDeveloper };
